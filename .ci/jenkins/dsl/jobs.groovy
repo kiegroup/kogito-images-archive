@@ -172,6 +172,9 @@ void setupBuildImageJob(JobType jobType, boolean prodCI = false) {
         AUTHOR_CREDS_ID: "${GIT_AUTHOR_CREDENTIALS_ID}",
         AUTHOR_TOKEN_CREDS_ID: "${GIT_AUTHOR_TOKEN_CREDENTIALS_ID}",
     ])
+    if (Utils.hasBindingValue(this, 'DISABLE_DEPLOY')) {
+        jobParams.env.put('DEPLOY_IMAGE', !Utils.getBindingValue(this, 'DISABLE_DEPLOY').toBoolean())
+    }
     KogitoJobTemplate.createPipelineJob(this, jobParams)?.with {
         logRotator {
             daysToKeep(10)
