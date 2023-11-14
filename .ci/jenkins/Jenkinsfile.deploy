@@ -282,7 +282,7 @@ void createBuildAndTestStageClosure(String image) {
             buildParams.add(string(name: 'TESTS_KOGITO_EXAMPLES_URI', value: params.EXAMPLES_URI))
             buildParams.add(string(name: 'TESTS_KOGITO_EXAMPLES_REF', value: params.EXAMPLES_REF))
 
-            buildParams.add(booleanParam(name: 'DEPLOY_IMAGE', value: true))
+            buildParams.add(booleanParam(name: 'DEPLOY_IMAGE', value: isDeployImage())
             buildParams.add(booleanParam(name: 'DEPLOY_IMAGE_USE_OPENSHIFT_REGISTRY', value: isDeployImageInOpenshiftRegistry()))
             buildParams.add(string(name: 'DEPLOY_IMAGE_REGISTRY_CREDENTIALS', value: getDeployImageRegistryCredentials()))
             buildParams.add(string(name: 'DEPLOY_IMAGE_REGISTRY', value: getDeployImageRegistry()))
@@ -369,6 +369,10 @@ String getDeployImageTag() {
 
 boolean isDeployLatestTag() {
     return params.DEPLOY_WITH_LATEST_TAG
+}
+
+boolean isDeployImage() {
+    return params.DEPLOY_IMAGE ? params.DEPLOY_IMAGE.toBoolean() : false
 }
 
 ////////////////////////////////////////////////////////////////////////
