@@ -137,6 +137,7 @@ void setupDeployJob(JobType jobType) {
             stringParam('EXAMPLES_REF', '', 'Git reference (branch/tag) to the kogito-examples repository to use for tests.')
 
             // Deploy information
+            booleanParam('DEPLOY_IMAGE', !Utils.getBindingValue(this, 'DISABLE_DEPLOY').toBoolean(), 'Should we deploy image to given deploy registry ?')
             booleanParam('IMAGE_USE_OPENSHIFT_REGISTRY', false, 'Set to true if image should be deployed in Openshift registry.In this case, IMAGE_REGISTRY_CREDENTIALS, IMAGE_REGISTRY and IMAGE_NAMESPACE parameters will be ignored')
             stringParam('IMAGE_REGISTRY_CREDENTIALS', "${CLOUD_IMAGE_REGISTRY_CREDENTIALS_NIGHTLY}", 'Image registry credentials to use to deploy images. Will be ignored if no IMAGE_REGISTRY is given')
             stringParam('IMAGE_REGISTRY', "${CLOUD_IMAGE_REGISTRY}", 'Image registry to use to deploy images')
@@ -197,7 +198,7 @@ void setupBuildImageJob(JobType jobType, boolean prodCI = false) {
             stringParam('TESTS_KOGITO_EXAMPLES_REF', '', '(Optional) Git reference (branch/tag) to the kogito-examples repository to use for tests.')
 
             // Deploy information
-            booleanParam('DEPLOY_IMAGE', false, 'Should we deploy image to given deploy registry ?')
+            booleanParam('DEPLOY_IMAGE', !Utils.getBindingValue(this, 'DISABLE_DEPLOY').toBoolean(), 'Should we deploy image to given deploy registry ?')
             booleanParam('DEPLOY_IMAGE_USE_OPENSHIFT_REGISTRY', false, 'Set to true if image should be deployed in Openshift registry.In this case, IMAGE_REGISTRY_CREDENTIALS, IMAGE_REGISTRY and IMAGE_NAMESPACE parameters will be ignored')
             stringParam('DEPLOY_IMAGE_REGISTRY_CREDENTIALS', "${CLOUD_IMAGE_REGISTRY_CREDENTIALS_NIGHTLY}", 'Image registry credentials to use to deploy images. Will be ignored if no IMAGE_REGISTRY is given')
             stringParam('DEPLOY_IMAGE_REGISTRY', "${CLOUD_IMAGE_REGISTRY}", 'Image registry to use to deploy images')
